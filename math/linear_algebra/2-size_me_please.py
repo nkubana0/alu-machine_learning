@@ -2,6 +2,9 @@
 def matrix_shape(matrix):
     """
     A function that returns the shape of a matrix as a list of integers.
+
+    :param matrix: A matrix (a nested list of lists)
+    :return: List of integers representing the shape of the matrix
     """
 
     shape = []
