@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+Module for 2-size_me_please
+"""
 
 def matrix_shape(matrix):
     """
