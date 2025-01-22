@@ -3,6 +3,7 @@
 Module for 2-size_me_please
 """
 
+
 def matrix_shape(matrix):
     """
     A function that returns the shape of a matrix as a list of integers.
