@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 def matrix_shape(matrix):
     """
     A function that returns the shape of a matrix as a list of integers.
