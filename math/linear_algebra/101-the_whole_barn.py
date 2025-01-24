@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+"""
+Module `101-the_whole_barn`
+"""
+
+
 def add_matrices(mat1, mat2):
     """
     Adds two matrices element-wise.
