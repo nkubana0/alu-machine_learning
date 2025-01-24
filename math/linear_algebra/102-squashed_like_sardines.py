@@ -7,15 +7,6 @@ Module `102-squashed_like_sardines`
 def cat_matrices(mat1, mat2, axis=0):
     """
     Concatenates two matrices along a specific axis.
-
-    Args:
-        mat1: The first matrix (list of lists of ints/floats).
-        mat2: The second matrix (list of lists of ints/floats).
-        axis: The axis along which to concatenate (default is 0).
-
-    Returns:
-        A new matrix representing the concatenation of mat1 and mat2 along the specified axis,
-        or None if the matrices cannot be concatenated.
     """
     # Check if both inputs are lists
     if not isinstance(mat1, list) or not isinstance(mat2, list):
