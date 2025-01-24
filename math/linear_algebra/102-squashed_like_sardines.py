@@ -3,6 +3,7 @@
 Module `102-squashed_like_sardines`
 """
 
+
 def cat_matrices(mat1, mat2, axis=0):
     """
     Concatenates two matrices along a specific axis.
@@ -22,9 +23,12 @@ def cat_matrices(mat1, mat2, axis=0):
     # Base case: Axis is 0, concatenate at the top level
     if axis == 0:
         # Ensure both inputs have the same inner dimensions if they are nested
-        if all(isinstance(row, list) for row in mat1) and all(isinstance(row, list) for row in mat2):
+        if isinstance(mat1[0], list) and isinstance(mat2[0], list):
             if len(mat1[0]) != len(mat2[0]):
                 return None
+        elif isinstance(mat1[0], list) or isinstance(mat2[0], list):
+            # If one is a list and the other is not, they cannot be concatenated
+            return None
         return mat1 + mat2
 
     # Recursive case: Axis > 0
