@@ -12,7 +12,9 @@ def np_slice(matrix, axes={}):
     Returns:
         A sliced version of the input matrix.
     """
-    slices = [slice(None)] * len(matrix.shape)  # Create a default slice for all axes
+    slices = [slice(None)] * \
+        len(matrix.shape)  # Create a default slice for all axes
     for axis, slice_tuple in axes.items():
-        slices[axis] = slice(*slice_tuple)  # Replace the slice for the specified axis
+        # Replace the slice for the specified axis
+        slices[axis] = slice(*slice_tuple)
     return matrix[tuple(slices)]
