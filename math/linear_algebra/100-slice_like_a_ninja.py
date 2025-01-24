@@ -1,21 +1,16 @@
 #!/usr/bin/env python3
 
 def np_slice(matrix, axes={}):
-    """Slices a matrix (nested lists) along specific axes.
+    """Slices a matrix (numpy.ndarray or nested list) along specific axes.
 
     Args:
-        matrix (list): The matrix to slice, represented as nested lists.
+        matrix (list): The matrix to slice (nested lists).
         axes (dict): A dictionary where:
                      - Key: The axis to slice along (int).
                      - Value: A tuple representing the slice for that axis.
 
     Returns:
         list: A new sliced matrix (nested lists).
-
-    Example:
-        >>> mat = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-        >>> np_slice(mat, {0: (1, 3), 1: (0, 2)})
-        [[4, 5], [7, 8]]
     """
     def slice_recursive(mat, axis, slices):
         """Recursively slices the matrix along the specified axis."""
