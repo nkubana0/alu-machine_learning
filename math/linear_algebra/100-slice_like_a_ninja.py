@@ -1,16 +1,11 @@
 #!/usr/bin/env python3
+"""
+Module - 100-slice_like_a_ninja
+"""
 
 def np_slice(matrix, axes={}):
     """
     Slices a matrix along specific axes.
-
-    Args:
-        matrix: The matrix to slice (assumed to be a numpy.ndarray).
-        axes: A dictionary where the key is an axis to slice along,
-              and the value is a tuple representing the slice to make.
-
-    Returns:
-        A sliced version of the input matrix.
     """
     slices = [slice(None)] * \
         len(matrix.shape)  # Create a default slice for all axes
