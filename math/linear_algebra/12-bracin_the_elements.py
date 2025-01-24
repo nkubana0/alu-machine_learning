@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 """
 Module `12-bracin_the_elements`
-This module contains a function that
-that performs element-wise addition,
-subtraction, multiplication, and division:
 """
 
 

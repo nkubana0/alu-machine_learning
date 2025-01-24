@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
 Module `11-the_western_exchange`
-This module contains a function that transposes matrix
 """
 
 
