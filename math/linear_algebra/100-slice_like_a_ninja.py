@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 def np_slice(matrix, axes={}):
     """Slices a matrix (nested lists) along specific axes.
 
