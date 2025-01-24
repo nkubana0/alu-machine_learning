@@ -17,21 +17,22 @@ def cat_matrices(mat1, mat2, axis=0):
         A new matrix representing the concatenation of mat1 and mat2 along the specified axis,
         or None if the matrices cannot be concatenated.
     """
+    # Check if both inputs are lists
     if not isinstance(mat1, list) or not isinstance(mat2, list):
         return None
 
-    # Base case: Axis is 0, concatenate at the top level
+    # If axis is 0, check that the inner dimensions match
     if axis == 0:
-        # Ensure both inputs have the same inner dimensions if they are nested
-        if isinstance(mat1[0], list) and isinstance(mat2[0], list):
+        if all(isinstance(row, list) for row in mat1) and all(isinstance(row, list) for row in mat2):
+            # Ensure all inner dimensions are equal
             if len(mat1[0]) != len(mat2[0]):
                 return None
-        elif isinstance(mat1[0], list) or isinstance(mat2[0], list):
-            # If one is a list and the other is not, they cannot be concatenated
+        elif any(isinstance(row, list) for row in mat1) or any(isinstance(row, list) for row in mat2):
+            # If one is nested and the other is not, they cannot be concatenated
             return None
         return mat1 + mat2
 
-    # Recursive case: Axis > 0
+    # For axis > 0, recurse into the submatrices
     if len(mat1) != len(mat2):
         return None
 
