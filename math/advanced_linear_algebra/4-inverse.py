@@ -57,3 +57,4 @@ def inverse(matrix):
         len(adjugate_matrix[i]))] for i in range(len(adjugate_matrix))]
 
     return inverse_matrix
+
