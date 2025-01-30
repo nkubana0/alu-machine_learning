@@ -13,14 +13,14 @@ def definiteness(matrix):
     # Check if matrix is a numpy ndarray
     if not isinstance(matrix, np.ndarray):
         raise TypeError("matrix must be a numpy.ndarray")
-    
+
     # Check if matrix is square and not empty
     if matrix.ndim != 2 or matrix.shape[0] != matrix.shape[1] or matrix.size == 0:
         return None
 
     # Calculate the eigenvalues of the matrix
     eigenvalues = np.linalg.eigvals(matrix)
-    
+
     # Determine the definiteness based on the eigenvalues
     if np.all(eigenvalues > 0):
         return "Positive definite"
