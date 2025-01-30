@@ -14,21 +14,30 @@ def definiteness(matrix):
     if not isinstance(matrix, np.ndarray):
         raise TypeError("matrix must be a numpy.ndarray")
 
-    # Check if matrix is square and not empty
-    if matrix.ndim != 2 or matrix.shape[0] != matrix.shape[1] or matrix.size == 0:
+    if matrix.ndim != 2 or matrix.shape[0] != matrix.shape[1]:
         return None
 
-    # Calculate the eigenvalues of the matrix
-    eigenvalues = np.linalg.eigvals(matrix)
+    if not np.allclose(matrix, matrix.T):
+        return None
 
-    # Determine the definiteness based on the eigenvalues
-    if np.all(eigenvalues > 0):
+    try:
+        eigenvalues = np.linalg.eigvals(matrix)
+    except np.linalg.LinAlgError:
+        return None
+
+    pos_eig = np.sum(eigenvalues > 1e-10)
+    neg_eig = np.sum(eigenvalues < -1e-10)
+    zero_eig = np.sum(np.isclose(eigenvalues, 0, atol=1e-10))
+
+    if pos_eig == len(eigenvalues):
         return "Positive definite"
-    elif np.all(eigenvalues >= 0):
+    elif pos_eig + zero_eig == len(eigenvalues) and pos_eig > 0:
         return "Positive semi-definite"
-    elif np.all(eigenvalues < 0):
+    elif neg_eig == len(eigenvalues):
         return "Negative definite"
-    elif np.all(eigenvalues <= 0):
+    elif neg_eig + zero_eig == len(eigenvalues) and neg_eig > 0:
         return "Negative semi-definite"
-    else:
+    elif pos_eig > 0 and neg_eig > 0:
         return "Indefinite"
+    else:
+        return None
