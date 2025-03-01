@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Module that  Calculate the intersection of obtaining observed data
-with various hypothetical probabilities
-of developing severe side effects in a drug trial.
+Module that calculates the intersection of obtaining observed data
+with various hypothetical probabilities of developing severe side
+effects in a drug trial.
 """
 
 import numpy as np
@@ -11,15 +11,14 @@ from scipy.stats import binom
 
 def intersection(x, n, P, Pr):
     """
-    Calculate the intersection of obtaining observed
-    data with various hypothetical probabilities
-    of developing severe side effects in a drug trial.
+    Calculate the intersection of obtaining observed data with various
+    hypothetical probabilities of developing severe side effects in a
+    drug trial.
 
-    This function uses the binomial distribution to
-    model the probability of observing
-    a certain number of patients with severe side
-    effects given different probabilities
-    of side effect occurrence, and combines this with prior beliefs.
+    This function uses the binomial distribution to model the probability
+    of observing a certain number of patients with severe side effects
+    given different probabilities of side effect occurrence, and combines
+    this with prior beliefs.
 
     Parameters:
     -----------
@@ -28,16 +27,16 @@ def intersection(x, n, P, Pr):
     n : int
         The total number of patients observed in the trial.
     P : numpy.ndarray
-        A 1D array containing various hypothetical probabilities
-        of developing severe side effects.
+        A 1D array containing various hypothetical probabilities of
+        developing severe side effects.
     Pr : numpy.ndarray
         A 1D array containing the prior beliefs of P.
 
     Returns:
     --------
     numpy.ndarray
-        A 1D array containing the intersection of obtaining x
-        and n with each probability in P.
+        A 1D array containing the intersection of obtaining x and n with
+        each probability in P.
 
     Raises:
     -------
@@ -56,8 +55,7 @@ def intersection(x, n, P, Pr):
         raise ValueError("n must be a positive integer")
 
     if not isinstance(x, int) or x < 0:
-        raise ValueError(
-            "x must be an integer that is greater than or equal to 0")
+        raise ValueError("x must be an integer that is greater than or equal to 0")
 
     if x > n:
         raise ValueError("x cannot be greater than n")

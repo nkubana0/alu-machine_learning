@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-"""Calculates the intersection of obtaining observed data with various hypothetical probabilities."""
+"""Calculates the intersection of obtaining observed data with various
+hypothetical probabilities."""
 import numpy as np
 from scipy.stats import binom
 
 
 def intersection(x, n, P, Pr):
     """
-    Calculates the intersection of obtaining observed data with various hypothetical probabilities.
+    Calculates the intersection of obtaining observed data with various
+    hypothetical probabilities.
 
     Parameters:
     x (int): Number of patients with severe side effects.
@@ -18,10 +20,11 @@ def intersection(x, n, P, Pr):
     numpy.ndarray: 1D array of intersections.
 
     Raises:
-    ValueError: If n is not a positive integer, x is not a non-negative integer,
-                x is greater than n, P or Pr contains values outside [0, 1],
-                or Pr does not sum to 1.
-    TypeError: If P is not a 1D numpy.ndarray or Pr is not a numpy.ndarray with the same shape as P.
+    ValueError: If n is not a positive integer, x is not a non-negative
+                integer, x is greater than n, P or Pr contains values
+                outside [0, 1], or Pr does not sum to 1.
+    TypeError: If P is not a 1D numpy.ndarray or Pr is not a numpy.ndarray
+               with the same shape as P.
     """
 
     if not isinstance(n, int) or n <= 0:
