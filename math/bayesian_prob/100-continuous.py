@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-from scipy import special
 """
 Posterior probability
 """
+from scipy import special
 
 
 def posterior(x, n, p1, p2):
