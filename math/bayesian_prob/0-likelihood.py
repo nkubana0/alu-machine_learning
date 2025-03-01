@@ -1,56 +1,27 @@
 #!/usr/bin/env python3
-"""
-Module that calculates the intersection of obtaining observed data
-with various hypothetical probabilities of developing severe side
-effects in a drug trial.
-"""
-
+"""Calculates the likelihood of obtaining the data given various probabilities."""
 import numpy as np
 from scipy.stats import binom
 
 
-def intersection(x, n, P, Pr):
+def likelihood(x, n, P):
     """
-    Calculate the intersection of obtaining observed data with various
-    hypothetical probabilities of developing severe side effects in a
-    drug trial.
-
-    This function uses the binomial distribution to model the probability
-    of observing a certain number of patients with severe side effects
-    given different probabilities of side effect occurrence, and combines
-    this with prior beliefs.
+    Calculates the likelihood of obtaining observed data for various probabilities.
 
     Parameters:
-    -----------
-    x : int
-        The number of patients that develop severe side effects.
-    n : int
-        The total number of patients observed in the trial.
-    P : numpy.ndarray
-        A 1D array containing various hypothetical probabilities of
-        developing severe side effects.
-    Pr : numpy.ndarray
-        A 1D array containing the prior beliefs of P.
+    x (int): Number of patients with severe side effects.
+    n (int): Total number of patients observed.
+    P (numpy.ndarray): 1D array of hypothetical probabilities.
 
     Returns:
-    --------
-    numpy.ndarray
-        A 1D array containing the intersection of obtaining x and n with
-        each probability in P.
+    numpy.ndarray: 1D array of likelihoods.
 
     Raises:
-    -------
-    ValueError
-        If n is not a positive integer.
-        If x is not a non-negative integer.
-        If x is greater than n.
-        If any value in P or Pr is not in the range [0, 1].
-        If Pr does not sum to 1.
-    TypeError
-        If P is not a 1D numpy.ndarray.
-        If Pr is not a numpy.ndarray with the same shape as P.
+    ValueError: If n is not a positive integer, x is not a non-negative integer,
+                x is greater than n, or P contains values outside [0, 1].
+    TypeError: If P is not a 1D numpy.ndarray.
     """
-    # Input validation
+
     if not isinstance(n, int) or n <= 0:
         raise ValueError("n must be a positive integer")
 
@@ -63,20 +34,7 @@ def intersection(x, n, P, Pr):
     if not isinstance(P, np.ndarray) or P.ndim != 1:
         raise TypeError("P must be a 1D numpy.ndarray")
 
-    if not isinstance(Pr, np.ndarray) or Pr.shape != P.shape:
-        raise TypeError("Pr must be a numpy.ndarray with the same shape as P")
-
     if np.any((P < 0) | (P > 1)):
         raise ValueError("All values in P must be in the range [0, 1]")
 
-    if np.any((Pr < 0) | (Pr > 1)):
-        raise ValueError("All values in Pr must be in the range [0, 1]")
-
-    if not np.isclose(np.sum(Pr), 1):
-        raise ValueError("Pr must sum to 1")
-
-    # Calculate likelihood using binomial distribution
-    likelihood = binom.pmf(x, n, P)
-
-    # Calculate intersection
-    return likelihood * Pr
+    return binom.pmf(x, n, P)
