@@ -3,7 +3,7 @@ from scipy import special
 
 
 def posterior(x, n, p1, p2):
-    """Calculates the posterior probability 
+    """Calculates the posterior probability
     p is within [p1, p2] given x and n."""
     # Input validation
     if not isinstance(n, int) or n <= 0:
