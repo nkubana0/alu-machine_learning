@@ -9,31 +9,35 @@ def convolve(images, kernels, padding='same', stride=(1, 1)):
     """
     Function that performs a convolution on grayscale images
     """
-    m, h, w, c = images.shape
-    kh, kw, _, nc = kernels.shape
-    sh, sw = stride
-
-    if padding == 'same':
-        ph = ((h - 1) * sh + kh - h) // 2
-        pw = ((w - 1) * sw + kw - w) // 2
-    elif padding == 'valid':
-        ph, pw = 0, 0
+    m, h, w = images.shape[0], images.shape[1], images.shape[2]
+    kh, kw, nc = kernels.shape[0], kernels.shape[1], kernels.shape[3]
+    sh, sw = stride[0], stride[1]
+    if padding == "same":
+        pw = int(((w - 1) * sw + kw - w) / 2) + 1
+        ph = int(((h - 1) * sh + kh - h) / 2) + 1
+    elif padding == "valid":
+        ph = 0
+        pw = 0
     else:
-        ph, pw = padding
-
-    padded_images = np.pad(
-        images, ((0, 0), (ph, ph), (pw, pw), (0, 0)), mode='constant')
-    new_h = (h + 2 * ph - kh) // sh + 1
-    new_w = (w + 2 * pw - kw) // sw + 1
-    output = np.zeros((m, new_h, new_w, nc))
-
-    for k in range(nc):
-        for i in range(new_h):
-            for j in range(new_w):
-                output[:, i, j, k] = np.sum(
-                    padded_images[:, i * sh:i * sh + kh, j *
-                                  sw:j * sw + kw, :] * kernels[:, :, :, k],
-                    axis=(1, 2, 3)
+        pw = padding[1]
+        ph = padding[0]
+    nw = int(((w - kw + (2 * pw)) / sw) + 1)
+    nh = int(((h - kh + (2 * ph)) / sh) + 1)
+    convolved = np.zeros((m, nh, nw, nc))
+    npad = ((0, 0), (ph, ph), (pw, pw), (0, 0))
+    imagesp = np.pad(
+        images,
+        pad_width=npad,
+        mode="constant",
+        constant_values=0)
+    for i in range(nh):
+        x = i * sh
+        for j in range(nw):
+            y = j * sw
+            for k in range(nc):
+                image = imagesp[:, x: x + kh, y: y + kw, :]
+                kernel = kernels[:, :, :, k]
+                convolved[:, i, j, k] = np.sum(
+                    np.multiply(image, kernel), axis=(1, 2, 3)
                 )
-
-    return output
+    return convolved
