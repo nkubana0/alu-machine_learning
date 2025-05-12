@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-"""NST module: Initializes a neural style transfer instance"""
+"""
+NST module: Adds model loading functionality for style and content extraction
+"""
 
 import numpy as np
 import tensorflow as tf
 
 
 class NST:
-    """Class for Neural Style Transfer initialization"""
+    """Class for Neural Style Transfer initialization and model loading"""
 
     style_layers = [
         'block1_conv1',
@@ -19,12 +21,8 @@ class NST:
 
     def __init__(self, style_image, content_image, alpha=1e4, beta=1):
         """
-        Class constructor for NST
-        Args:
-            style_image: numpy.ndarray - style reference image (h, w, 3)
-            content_image: numpy.ndarray - content reference image (h, w, 3)
-            alpha: float - weight for content cost
-            beta: float - weight for style cost
+        Initializes NST with preprocessed style and content images and loads
+        the model
         """
         tf.enable_eager_execution()
 
@@ -50,6 +48,7 @@ class NST:
         self.beta = beta
         self.style_image = self.scale_image(style_image)
         self.content_image = self.scale_image(content_image)
+        self.model = self.load_model()
 
     @staticmethod
     def scale_image(image):
@@ -81,3 +80,28 @@ class NST:
         image = tf.clip_by_value(image / 255.0, 0.0, 1.0)
         image = tf.expand_dims(image, axis=0)
         return image
+
+
+def load_model(self):
+    """
+    Loads VGG19 model and returns a model that outputs selected style and
+    content layers.
+
+    Returns:
+        tf.keras.Model: model for feature extraction
+    """
+    vgg = tf.keras.applications.VGG19(include_top=False, weights='imagenet')
+    vgg.trainable = False
+
+    outputs = [
+        vgg.get_layer(name).output
+        for name in (
+            self.style_layers + [self.content_layer]
+        )
+    ]
+
+    model = tf.keras.models.Model(
+        inputs=vgg.input,
+        outputs=outputs
+    )
+    return model
